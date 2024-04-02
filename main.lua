@@ -8,10 +8,10 @@ function love.load()
     pacman = {}
     pacman.x = 200
     pacman.y = 250
-    pacman.ead = true
+    pacman.eat = true
 
     _G.food = {
-        x = 600
+        x = 400,
         eaten = false
     }
 end
@@ -28,9 +28,9 @@ function love.update(dt)
 end
 
 function love.draw()
-    if not food_eaten then
+    if not food.eaten then
         love.graphics.setColor(62/255, 62/255, 62/255)
-        love.graphics.rectangle("fill", 600, 200, 50, 50)
+        love.graphics.rectangle("fill", food.x, 225, 50, 50)
     end
 
     love.graphics.setColor(1, 0.7, 0.1)
