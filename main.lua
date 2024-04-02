@@ -3,11 +3,12 @@ _G.love = require("love")
 function love.load()
     love.graphics.setBackgroundColor(0.5, 0.5, 1)
 
-    -- Unnessesary. Define pacman as global
+    -- explicit define pacman as a global
     -- _G.pacman = {}
     pacman = {}
     pacman.x = 200
     pacman.y = 250
+    pacman.size = 60
     pacman.eat = true
 
     _G.food = {
@@ -17,11 +18,26 @@ function love.load()
 end
 
 function love.update(dt)
-    pacman.x = pacman.x + 5
-    -- if pacman.x >= 680 then
-    --     pacman.x = 5
-    --     food_eaten = false
-    -- end
+    delta = 5
+    if love.keyboard.isDown("a") then
+        if pacman.x >= pacman.size then
+            pacman.x = pacman.x - delta
+        end
+    elseif love.keyboard.isDown("d") then
+        -- how to access global window width?
+        if pacman.x <= 680 - pacman.size then
+            pacman.x = pacman.x + delta
+        end
+    elseif love.keyboard.isDown("w") then
+        if pacman.y >= pacman.size then
+            pacman.y = pacman.y - delta
+        end
+    elseif love.keyboard.isDown("s") then
+        if pacman.y <= 480 - pacman.size then
+            pacman.y = pacman.y + delta
+        end
+    end
+
     if pacman.x >= food.x + 20 then
         food.eaten = true
     end
@@ -34,6 +50,6 @@ function love.draw()
     end
 
     love.graphics.setColor(1, 0.7, 0.1)
-    love.graphics.arc("fill", pacman.x, pacman.y, 60, 1, 5)
+    love.graphics.arc("fill", pacman.x, pacman.y, pacman.size, 1, 5)
 end
 
