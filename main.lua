@@ -9,8 +9,8 @@ function love.load()
     pacman.x = 200
     pacman.y = 250
     pacman.size = 60
-    pacman.angle1 = 1
-    pacman.angle2 = 5
+    pacman.angle1 = 0.5
+    pacman.angle2 = 5.5
 
     _G.food = {
         x = 400,
@@ -19,11 +19,16 @@ function love.load()
 end
 
 function love.update(dt)
-    delta = 5
+    delta = 2
 
     if love.keyboard.isDown("down") then
-        pacman.angle1 = pacman.angle1 - 1
-        pacman.angle2 = pacman.angle2 - 1
+        pacman.angle1 = pacman.angle1 + math.pi * dt * 2
+        pacman.angle2 = pacman.angle2 + math.pi * dt * 2
+    end
+
+    if love.keyboard.isDown("up") then
+        pacman.angle1 = pacman.angle1 - math.pi * dt * 2
+        pacman.angle2 = pacman.angle2 - math.pi * dt * 2
     end
 
     if love.keyboard.isDown("a") then
@@ -60,6 +65,6 @@ function love.draw()
     end
 
     love.graphics.setColor(1, 0.7, 0.1)
-    love.graphics.arc("fill", pacman.x, pacman.y, pacman.size, 1, 5)
+    love.graphics.arc("fill", pacman.x, pacman.y, pacman.size, pacman.angle1, pacman.angle2)
 end
 
