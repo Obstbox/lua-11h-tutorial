@@ -16,6 +16,23 @@ function love.load()
     --     x = 400,
     --     eaten = false
     -- }
+    jack = {
+        x = 0,
+        y = 0,
+        sprite = love.graphics.newImage("assets/sprites/dude.png")
+    }
+
+    SPRITE_WIDTH, SPRITE_HEIGHT = 288, 288
+    QUAD_WIDTH = 72
+    QUAD_HEIGHT = QUAD_WIDTH
+
+    quads = {}
+
+    for i = 1, 16 do
+        -- not my case because of matrix of sprites not a line
+        quads[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 0, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+    end
+
 end
 
 function love.update(dt)
