@@ -9,7 +9,8 @@ function love.load()
     pacman.x = 200
     pacman.y = 250
     pacman.size = 60
-    pacman.eat = true
+    pacman.angle1 = 1
+    pacman.angle2 = 5
 
     _G.food = {
         x = 400,
@@ -19,20 +20,29 @@ end
 
 function love.update(dt)
     delta = 5
+
+    if love.keyboard.isDown("down") then
+        pacman.angle1 = pacman.angle1 - 1
+        pacman.angle2 = pacman.angle2 - 1
+    end
+
     if love.keyboard.isDown("a") then
         if pacman.x >= pacman.size then
             pacman.x = pacman.x - delta
         end
-    elseif love.keyboard.isDown("d") then
+    end
+    if love.keyboard.isDown("d") then
         -- how to access global window width?
         if pacman.x <= 680 - pacman.size then
             pacman.x = pacman.x + delta
         end
-    elseif love.keyboard.isDown("w") then
+    end
+    if love.keyboard.isDown("w") then
         if pacman.y >= pacman.size then
             pacman.y = pacman.y - delta
         end
-    elseif love.keyboard.isDown("s") then
+    end
+    if love.keyboard.isDown("s") then
         if pacman.y <= 480 - pacman.size then
             pacman.y = pacman.y + delta
         end
