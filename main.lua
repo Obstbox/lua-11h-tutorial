@@ -19,7 +19,7 @@ function love.load()
     jack = {
         x = 0,
         y = 0,
-        sprite = love.graphics.newImage("assets/sprites/dude.png"),
+        sprite = love.graphics.newImage("assets/sprites/werewolf.png"),
         animation = {
             direction = "right",
             idle = true,
@@ -44,15 +44,15 @@ function love.load()
     end
 
     for i = 1, jack.animation.max_frames do
-        quads_left[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 72, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+        quads_left[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 72+1, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
     end
 
     for i = 1, jack.animation.max_frames do
-        quads_right[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 144, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+        quads_right[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 144+1, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
     end
     
     for i = 1, jack.animation.max_frames do
-        quads_up[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 216, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+        quads_up[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 216+1, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
     end
 
 end
