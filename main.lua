@@ -4,7 +4,7 @@ function love.load()
     jack = {
         x = 0,
         y = 0,
-        sprite = love.graphics.newImage("assets/sprites/werewolf.png"),
+        sprite = love.graphics.newImage("assets/sprites/dude.png"),
         animation = {
             direction = "right",
             idle = true,
@@ -68,6 +68,28 @@ function love.update(dt)
         jack.animation.frame = 1
     end
 
+    if love.keyboard.isDown("a") then
+        jack.animation.idle = false
+        jack.animation.direction = "left"
+
+    elseif love.keyboard.isDown("d") then
+        jack.animation.idle = false
+        jack.animation.direction = "right"
+
+    elseif love.keyboard.isDown("w") then
+        jack.animation.idle = false
+        jack.animation.direction = "up"
+
+    elseif love.keyboard.isDown("s") then
+        jack.animation.idle = false
+        jack.animation.direction = "down"
+
+    else
+        jack.animation.idle = true
+        jack.animation.direction = "right"
+        jack.animation.frame = 1
+    end
+
     if not jack.animation.idle then
         jack.animation.timer = jack.animation.timer + dt
 
@@ -95,11 +117,11 @@ end
 
 function love.draw()
     -- love.graphics.scale(2)
-    if jack.animation.direction == "right" then
-        love.graphics.draw(jack.sprite, quads_right[jack.animation.frame], jack.x, jack.y)
+    if jack.animation.direction == "left" then
+        love.graphics.draw(jack.sprite, quads_left[jack.animation.frame], jack.x, jack.y)
     else
         -- flip by x-axis ( .., -1, .. )
-        love.graphics.draw(jack.sprite, quads_right[jack.animation.frame], jack.x, jack.y,
+        love.graphics.draw(jack.sprite, quads_left[jack.animation.frame], jack.x, jack.y,
         0, -1, 1, QUAD_WIDTH, 0)
     end
 end
