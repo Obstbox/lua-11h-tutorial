@@ -26,11 +26,22 @@ function love.load()
     QUAD_WIDTH = 72
     QUAD_HEIGHT = QUAD_WIDTH
 
-    quads = {}
+    quads_down = {}
+    quads_left = {}
+    quads_right = {}
+    quads_up = {}
 
-    for i = 1, 16 do
-        -- not my case because of matrix of sprites not a line
-        quads[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 0, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+    for i = 1, 4 do
+        quads_down[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 0, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+    end
+    for i = 1, 4 do
+        quads_left[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 1, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+    end
+    for i = 1, 4 do
+        quads_right[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 2, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+    end
+    for i = 1, 4 do
+        quads_up[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 3, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
     end
 
 end
