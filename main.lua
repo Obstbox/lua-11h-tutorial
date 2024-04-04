@@ -19,7 +19,15 @@ function love.load()
     jack = {
         x = 0,
         y = 0,
-        sprite = love.graphics.newImage("assets/sprites/dude.png")
+        sprite = love.graphics.newImage("assets/sprites/dude.png"),
+        animation = {
+            direction = "right",
+            idle = false,
+            frame = 1,
+            max_frames = 4,
+            speed = 20,
+            timer = 0.1
+        }
     }
 
     SPRITE_WIDTH, SPRITE_HEIGHT = 288, 288
@@ -31,17 +39,21 @@ function love.load()
     quads_right = {}
     quads_up = {}
 
-    for i = 1, 4 do
+    for i = 1, jack.animation.max_frames do
         quads_down[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 0, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+        print(quads_down[i])
     end
-    for i = 1, 4 do
-        quads_left[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 1, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+
+    for i = 1, jack.animation.max_frames do
+        quads_left[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 72, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
     end
-    for i = 1, 4 do
-        quads_right[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 2, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+
+    for i = 1, jack.animation.max_frames do
+        quads_right[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 144, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
     end
-    for i = 1, 4 do
-        quads_up[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 3, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
+    
+    for i = 1, jack.animation.max_frames do
+        quads_up[i] = love.graphics.newQuad(QUAD_WIDTH * (i - 1), 216, QUAD_WIDTH, QUAD_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT)
     end
 
 end
@@ -84,6 +96,19 @@ function love.update(dt)
     -- if pacman.x >= food.x + 20 then
     --     food.eaten = true
     -- end
+    if not jack.animation.idle then
+      jack.animation.timer = jack.animation.timer + dt
+
+      if jack.animation.timer > 0.2 then
+        jack.animation.timer = 0.1
+
+        jack.animation.frame = jack.animation.frame + 1
+
+        if jack.animation.frame > jack.animation.max_frames then
+          jack.animation.frame = 1
+        end
+      end
+    end
 end
 
 function love.draw()
@@ -94,5 +119,10 @@ function love.draw()
 
     -- love.graphics.setColor(1, 0.7, 0.1)
     -- love.graphics.arc("fill", pacman.x, pacman.y, pacman.size, pacman.angle1, pacman.angle2)
+    -- love.graphics.scale(2)
+    love.graphics.draw(jack.sprite, quads_up[jack.animation.frame], 240 , 100)
+    love.graphics.draw(jack.sprite, quads_left[jack.animation.frame], 120, 200)
+    love.graphics.draw(jack.sprite, quads_right[jack.animation.frame], 360, 200)
+    love.graphics.draw(jack.sprite, quads_down[jack.animation.frame], 240, 300)
 end
 
