@@ -1,11 +1,17 @@
 local love = require "love"
 
 function Enemy()
+    -- these lines are part of a function, not of a table down below
+    -- that is why we need a _x and _y: to be accessable by 'self'
+    local dice = math.random(1, 4)
+    local _x, _y
+    local _radius = 20
+
     return {
         level = 1,
-        radius = 20,
-        x = -10,
-        y = -50,
+        radius = _radius,
+        x = _x,
+        y = _y,
 
         move = function (self, player_x, player_y)
             if player_x - self.x > 0 then
