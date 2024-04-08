@@ -6,7 +6,7 @@ math.randomseed(os.time())
 local game = {
     difficulty = 1,
     state = {
-        menu = false,
+        menu = true,
         paused = false,
         running = true,
         ended = false,
@@ -18,6 +18,10 @@ local player = {
     radius = 20,
     x = 30,
     y = 30
+}
+
+local buttons = {
+    menu_state = {}
 }
 
 local enemies = {}
