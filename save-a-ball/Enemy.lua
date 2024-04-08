@@ -7,6 +7,20 @@ function Enemy()
     local _x, _y
     local _radius = 20
 
+    if dice == 1 then
+        _x = math.random(_radius, love.graphics.getWidth())
+        _y = -_radius * 4
+    elseif dice == 2 then
+        _x = -_radius * 4
+        _y = math.random(_radius, love.graphics.getHeight())
+    elseif dice == 3 then
+        _x = math.random(_radius, love.graphics.getWidth())
+        _y = love.graphics.getHeight() + (_radius * 4)
+    else
+        _x = love.graphics.getWidth + (_radius * 4)
+        _y = math.random(_radius, love.graphics.getHeight())
+    end
+
     return {
         level = 1,
         radius = _radius,
