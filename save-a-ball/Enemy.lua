@@ -17,7 +17,7 @@ function Enemy()
         _x = math.random(_radius, love.graphics.getWidth())
         _y = love.graphics.getHeight() + (_radius * 4)
     else
-        _x = love.graphics.getWidth + (_radius * 4)
+        _x = love.graphics.getWidth() + (_radius * 4)
         _y = math.random(_radius, love.graphics.getHeight())
     end
 
