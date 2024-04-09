@@ -31,8 +31,23 @@ function love.load()
     love.window.title = "Save the ball"
     love.mouse.setVisible(false)
 
-    buttons.menu_state.play_game = button("Play game", nil, nil, 120, 50)
+    buttons.menu_state.play_game = button("Play Game", nil, nil, 120, 40)
+    buttons.menu_state.settings  = button("Settings", nil, nil, 120, 40)
+    buttons.menu_state.exit_game = button("Exit Game", love.event.quit, nil, 120, 40)
+
     table.insert(enemies, 1, enemy())
+end
+
+function love.mousepressed(x, y, button, istouch, presses)
+    if not game.state['running'] then
+        if button == 1 then     -- left button
+            if game.state['menu'] then
+                for index in pairs(buttons.menu_state) do
+                    buttons.menu_state[index]:checkPressed(x, y, player.radius)
+                end
+            end
+        end
+    end
 end
 
 function love.update(dt)
@@ -60,7 +75,9 @@ function love.draw()
         love.graphics.circle("fill", player.x, player.y, player.radius)
 
     elseif game.state["menu"] then
-        buttons.menu_state.play_game:draw(10, 20, 5, 20)
+        buttons.menu_state.play_game:draw(10, 20, 5, 15)
+        buttons.menu_state.settings:draw(10, 70, 5, 15)
+        buttons.menu_state.exit_game:draw(10, 120, 5, 15)
     end
 
     if not game.state['running'] then
