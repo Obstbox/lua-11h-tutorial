@@ -27,13 +27,9 @@ local buttons = {
 
 local enemies = {}
 
-function love.load()
-    love.window.title = "Save the ball"
-    love.mouse.setVisible(false)
-
-    buttons.menu_state.play_game = button("Play Game", nil, nil, 120, 40)
-    buttons.menu_state.settings  = button("Settings", nil, nil, 120, 40)
-    buttons.menu_state.exit_game = button("Exit Game", love.event.quit, nil, 120, 40)
+local function startNewGame()
+    game.state["menu"] = false
+    game.state["running"] = true
 
     table.insert(enemies, 1, enemy())
 end
@@ -50,11 +46,25 @@ function love.mousepressed(x, y, button, istouch, presses)
     end
 end
 
+function love.load()
+    love.window.title = "Save the ball"
+    love.mouse.setVisible(false)
+
+    -- use startNewGame and not startNewGame() because the second
+    -- will be executed but not passed to the button
+    buttons.menu_state.play_game = button("Play Game", startNewGame, nil, 120, 40)
+    buttons.menu_state.settings  = button("Settings", nil, nil, 120, 40)
+    buttons.menu_state.exit_game = button("Exit Game", love.event.quit, nil, 120, 40)
+end
+
 function love.update(dt)
     player.x, player.y = love.mouse.getPosition()
 
-    for i = 1, #enemies do
-        enemies[i]:move(player.x, player.y)
+    -- to implement for menu state roaming color balls?
+    if game.state["running"] then
+        for i = 1, #enemies do
+            enemies[i]:move(player.x, player.y)
+        end
     end
 end
 
