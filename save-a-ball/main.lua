@@ -11,7 +11,9 @@ local game = {
         paused = false,
         running = false,
         ended = false,
-    }
+    },
+    points = 0,
+    levels = {15, 30, 60, 120}  -- points when to increase count of enemies
 
 }
 
@@ -31,7 +33,9 @@ local function startNewGame()
     game.state["menu"] = false
     game.state["running"] = true
 
-    table.insert(enemies, 1, enemy())
+    game.points = 0
+
+    enemies = { enemy(1) }
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
@@ -65,6 +69,7 @@ function love.update(dt)
         for i = 1, #enemies do
             enemies[i]:move(player.x, player.y)
         end
+        game.points = game.points + dt
     end
 end
 
@@ -78,6 +83,14 @@ function love.draw()
     )
 
     if game.state['running'] then
+        love.graphics.printf(
+            math.floor(game.points),
+            love.graphics.newFont(24),
+            0,
+            10,
+            love.graphics.getWidth(), "center"
+        )
+
         for i = 1, #enemies do
             enemies[i]:draw()
         end
