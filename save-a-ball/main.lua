@@ -38,7 +38,8 @@ local player = {
 }
 
 local buttons = {
-    menu_state = {}
+    menu_state = {},
+    ended_state = {}
 }
 
 local enemies = {}
@@ -65,6 +66,10 @@ function love.mousepressed(x, y, button, istouch, presses)
                 for index in pairs(buttons.menu_state) do
                     buttons.menu_state[index]:checkPressed(x, y, player.radius)
                 end
+            elseif game.state['ended'] then
+                for index in pairs(buttons.ended_state) do
+                    buttons.ended_state[index]:checkPressed(x, y, player.radius)
+                end
             end
         end
     end
@@ -79,6 +84,10 @@ function love.load()
     buttons.menu_state.play_game = button("Play Game", startNewGame, nil, 120, 40)
     buttons.menu_state.settings  = button("Settings", nil, nil, 120, 40)
     buttons.menu_state.exit_game = button("Exit Game", love.event.quit, nil, 120, 40)
+
+    buttons.ended_state.replay_game = button("Replay", startNewGame, nil, 100, 50)
+    buttons.ended_state.menu        = button("Menu", changeGameState, "Menu", 100, 50)
+    buttons.ended_state.exit_game   = button("Exit", love.event.quit, nil, 100, 50)
 end
 
 function love.update(dt)
@@ -99,7 +108,7 @@ function love.update(dt)
                     end
                 end
             else
-                changeGameState("menu")
+                changeGameState("ended")
             end
 
         end
@@ -136,6 +145,16 @@ function love.draw()
         buttons.menu_state.play_game:draw(10, 20, 5, 15)
         buttons.menu_state.settings:draw(10, 70, 5, 15)
         buttons.menu_state.exit_game:draw(10, 120, 5, 15)
+
+    elseif game.state["ended"] then
+        love.graphics.setFont(fonts.large.font)
+
+        -- some ugly hardcoded margins here
+        buttons.ended_state.replay_game:draw(love.graphics.getWidth() / 2.25, love.graphics.getHeight() / 1.8, 10, 10)
+        buttons.ended_state.menu:draw(love.graphics.getWidth() / 2.25, love.graphics.getHeight() / 1.54 + 17, 17, 10)
+        buttons.ended_state.exit_game:draw(love.graphics.getWidth() / 2.25, love.graphics.getHeight() / 1.33 + 30, 22, 10)
+
+        love.graphics.printf(math.floor(game.points), fonts.massive.font, 0, love.graphics.getHeight() / 2.6 - fonts.massive.size, love.graphics.getWidth(), "center")
     end
 
     if not game.state['running'] then
