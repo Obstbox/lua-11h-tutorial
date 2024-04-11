@@ -86,7 +86,7 @@ function love.load()
     buttons.menu_state.exit_game = button("Exit Game", love.event.quit, nil, 120, 40)
 
     buttons.ended_state.replay_game = button("Replay", startNewGame, nil, 100, 50)
-    buttons.ended_state.menu        = button("Menu", changeGameState, "Menu", 100, 50)
+    buttons.ended_state.menu        = button("Menu", changeGameState, "menu", 100, 50)
     buttons.ended_state.exit_game   = button("Exit", love.event.quit, nil, 100, 50)
 end
 
@@ -150,11 +150,33 @@ function love.draw()
         love.graphics.setFont(fonts.large.font)
 
         -- some ugly hardcoded margins here
-        buttons.ended_state.replay_game:draw(love.graphics.getWidth() / 2.25, love.graphics.getHeight() / 1.8, 10, 10)
-        buttons.ended_state.menu:draw(love.graphics.getWidth() / 2.25, love.graphics.getHeight() / 1.54 + 17, 17, 10)
-        buttons.ended_state.exit_game:draw(love.graphics.getWidth() / 2.25, love.graphics.getHeight() / 1.33 + 30, 22, 10)
+        buttons.ended_state.replay_game:draw(
+            love.graphics.getWidth() / 2.25,
+            love.graphics.getHeight() / 1.8,
+            10,
+            10
+        )
+        buttons.ended_state.menu:draw(
+            love.graphics.getWidth() / 2.25,
+            love.graphics.getHeight() / 1.54 + 17,
+            17,
+            10
+        )
+        buttons.ended_state.exit_game:draw(
+            love.graphics.getWidth() / 2.25,
+            love.graphics.getHeight() / 1.33 + 30,
+            22,
+            10
+        )
 
-        love.graphics.printf(math.floor(game.points), fonts.massive.font, 0, love.graphics.getHeight() / 2.6 - fonts.massive.size, love.graphics.getWidth(), "center")
+        love.graphics.printf(
+            math.floor(game.points),
+            fonts.massive.font,
+            0,
+            love.graphics.getHeight() / 2.6 - fonts.massive.size,
+            love.graphics.getWidth(),
+            "center"
+        )
     end
 
     if not game.state['running'] then
