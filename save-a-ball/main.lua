@@ -73,7 +73,21 @@ function love.update(dt)
     -- to implement for menu state roaming color balls?
     if game.state["running"] then
         for i = 1, #enemies do
-            enemies[i]:move(player.x, player.y)
+            if not enemies[i]:checkTouched(player.x, player.y, player.radius) then
+                enemies[i]:move(player.x, player.y)
+
+                for i = 1, #game.levels do
+                    if math.floor(game.points) == game.levels[i] then
+                        table.insert(enemies, 1, enemy(game.difficulty * (i + 1)))
+
+                        -- 5:10:40> a hack to keep loop running
+                        game.points = game.points + 1
+                    end
+                end
+            else
+                changeGameState("menu")
+            end
+
         end
         game.points = game.points + dt
     end
