@@ -29,9 +29,15 @@ local buttons = {
 
 local enemies = {}
 
+local function changeGameState(state)
+    game.state["menu"]    = state == "menu"     -- shortened if-else statement
+    game.state["paused"]  = state == "paused"
+    game.state["running"] = state == "running"
+    game.state["ended"]   = state == "ended"
+end
+
 local function startNewGame()
-    game.state["menu"] = false
-    game.state["running"] = true
+    changeGameState("running")
 
     game.points = 0
 
