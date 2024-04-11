@@ -1,6 +1,6 @@
 local love = require "love"
 
-function Enemy()
+function Enemy(_level)
     -- these lines are part of a function, not of a table down below
     -- that is why we need a _x and _y: to be accessable by 'self'
     local dice = math.random(1, 4)
@@ -22,7 +22,7 @@ function Enemy()
     end
 
     return {
-        level = 1,
+        level = _level or 1,
         radius = _radius,
         x = _x,
         y = _y,
