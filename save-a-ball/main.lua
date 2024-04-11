@@ -14,7 +14,21 @@ local game = {
     },
     points = 0,
     levels = {15, 30, 60, 120}  -- points when to increase count of enemies
+}
 
+local fonts = {
+    medium = {
+        font = love.graphics.newFont(16),
+        size = 16
+    },
+    large = {
+        font = love.graphics.newFont(24),
+        size = 24
+    },
+    massive = {
+        font = love.graphics.newFont(60),
+        size = 60
+    }
 }
 
 local player = {
@@ -94,9 +108,10 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setFont(fonts.medium.font)
     love.graphics.printf(
         "FPS: " .. love.timer.getFPS(),
-        love.graphics.newFont(12),
+        fonts.medium.font,
         10,
         love.graphics.getHeight() - 30,
         love.graphics.getWidth()
@@ -105,7 +120,7 @@ function love.draw()
     if game.state['running'] then
         love.graphics.printf(
             math.floor(game.points),
-            love.graphics.newFont(24),
+            fonts.large.font,
             0,
             10,
             love.graphics.getWidth(), "center"
