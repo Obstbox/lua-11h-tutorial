@@ -17,11 +17,48 @@ function Player(debugging)
         thrust = {
             x = 0,
             y = 0,
-            speed = 5
+            speed = 5,
+            big_flame = false,
+            flame = 2.0
         },
+
+        draw_flame_thrust = function(self, fillType, color)
+            love.graphics.setColor(color)
+
+            love.graphics.polygon(
+                fillType,
+                self.x - self.radius * (2 / 3 * math.cos(self.angle) + 0.5 * math.sin(self.angle)),
+                self.y + self.radius * (2 / 3 * math.sin(self.angle) - 0.5 * math.cos(self.angle)),
+                self.x - self.radius * self.thrust.flame * math.cos(self.angle),
+                self.y + self.radius * self.thrust.flame * math.sin(self.angle),
+                self.x - self.radius * (2 / 3 * math.cos(self.angle) - 0.5 * math.sin(self.angle)),
+                self.y + self.radius * (2 / 3 * math.sin(self.angle) + 0.5 * math.cos(self.angle))
+            )
+        end,
+                
 
         draw = function(self)
             local opacity = 1
+
+            if self.thrusting then
+                if not self.thrust.big_flame then
+                    self.thrust.flame = self.thrust.flame - 1 / love.timer.getFPS()
+
+                    if self.thrust.flame < 1.5 then
+                        self.thrust.big_flame = true
+                    end
+
+                else
+                    self.thrust.flame = self.thrust.flame + 1 / love.timer.getFPS()
+
+                    if self.thrust.flame > 2.5 then
+                        self.thrust.big_flame = false
+                    end
+                end
+
+                self:draw_flame_thrust("fill", { 255 / 255, 102 / 255, 25 / 225 })
+                self:draw_flame_thrust("line", { 1, 0, 0 })
+            end
 
             if debugging then
                 love.graphics.setColor(1, 0, 1)
