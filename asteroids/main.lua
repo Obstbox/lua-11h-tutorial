@@ -30,4 +30,7 @@ end
 
 function love.draw()
     player:draw()
+
+    love.graphics.setColor(0.44, 0.44, 0.44, 1)
+    love.graphics.print(love.timer.getFPS(), 10, 10)
 end
