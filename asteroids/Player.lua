@@ -22,6 +22,15 @@ function Player(debugging)
 
         draw = function(self)
             local opacity = 1
+
+            if debugging then
+                love.graphics.setColor(1, 0, 1)
+                love.graphics.rectangle("fill", self.x - 2, self.y - 2, 4, 4)
+
+                love.graphics.setColor(0.5, 0, 0)
+                love.graphics.circle("line", self.x, self.y, self.radius)
+            end
+
             love.graphics.setColor(1, 1, 1, opacity)
             love.graphics.polygon(
                 "line",
@@ -32,6 +41,21 @@ function Player(debugging)
                 self.x - self.radius * (2 / 3 * math.cos(self.angle) - math.sin(self.angle)),
                 self.y + self.radius * (2 / 3 * math.sin(self.angle) + math.cos(self.angle))
             )
+        end,
+
+        movePlayer = function(self)
+            local FPS = love.timer.getFPS()
+            local friction = 0.7
+
+            self.rotation = 360 / 180 * math.pi / FPS
+
+            if love.keyboard.isDown("a") or love.keyboard.isDown("left") or love.keyboard.isDown("kp4") then
+                self.angle = self.angle + self.rotation
+            end
+
+            if love.keyboard.isDown("d") or love.keyboard.isDown("right") or love.keyboard.isDown("kp6") then
+                self.angle = self.angle - self.rotation
+            end
         end
     }
 end
