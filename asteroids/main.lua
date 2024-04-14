@@ -1,6 +1,6 @@
 local love   = require "love"
 
-local Player = require "Player"
+local Player = require "objects/Player"
 local Game   = require "states/Game"
 
 function love.load()
@@ -48,7 +48,10 @@ end
 
 
 function love.draw()
-    player:draw()
+    if game.state.running or game.state.paused then
+        player:draw()
+        game:draw(game.state.paused)
+    end
 
     love.graphics.setColor(0.44, 0.44, 0.44, 1)
     love.graphics.print(love.timer.getFPS(), 10, 10)
