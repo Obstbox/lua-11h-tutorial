@@ -9,7 +9,7 @@ function Asteroids(x, y, ast_size, level, debugging)
 
     local vert = math.floor(math.random(ASTEROID_VERT + 1) + ASTEROID_VERT / 2)
     local offset = {}
-    for i 1, vert + 1 do
+    for i = 1, vert + 1 do
         table.insert(offset, math.random() * ASTEROID_JAG * 2 + 1 - ASTEROID_JAG)
     end
 
@@ -47,7 +47,7 @@ function Asteroids(x, y, ast_size, level, debugging)
                 table.insert(points, self.y + self.radius * self.offset[i + 1] * math.sin(self.angle + i * math.pi * 2 / self.vert))
             end
 
-            love.graphics.pylygon("line", points)
+            love.graphics.polygon("line", points)
 
             if debugging then
                 love.graphics.setColor(1, 0, 0)
