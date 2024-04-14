@@ -49,8 +49,10 @@ end
 
 function love.draw()
     if game.state.running or game.state.paused then
-        player:draw()
+        player:draw(game.state.paused)
         game:draw(game.state.paused)
+        -- love.graphics.setColor(1, 1, 0, 0.8)
+        -- love.graphics.print(tostring(game.state.paused), 30, 10)
     end
 
     love.graphics.setColor(0.44, 0.44, 0.44, 1)
