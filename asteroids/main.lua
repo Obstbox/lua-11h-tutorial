@@ -39,6 +39,19 @@ function love.keyreleased(key)
         if key == "w" or key == "up" or key == "kp8" then
             player.thrusting = false
         end
+
+        if key == "space" or key == "down" or key == "kp5" then
+            player:shootLaser()
+        end
+
+    end
+end
+
+function love.mousepressed(x, y, button, istouch, presses)
+    if button == 1 then
+        if game.state.running then
+            player:shootLaser()
+        end
     end
 end
 

@@ -1,4 +1,4 @@
-local love   = require "love"
+local love = require "love"
 local Text = require "../components/Text"
 local Asteroids = require "../objects/Asteroids"
 

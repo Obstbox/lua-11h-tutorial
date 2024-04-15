@@ -1,4 +1,5 @@
 local love = require "love"
+local Laser = require "objects/Laser.lua"
 
 function Player(debugging)
     local SHIP_SIZE = 30
@@ -13,6 +14,7 @@ function Player(debugging)
         radius = SHIP_SIZE / 2,
         angle  = VIEW_ANGLE,
         rotation  = 0,
+        lasers = {},
         thrusting = false,
         thrust = {
             x = 0,
@@ -36,6 +38,14 @@ function Player(debugging)
             )
         end,
                 
+
+        shootLaser = function(self)
+            table.insert(self.lasers, Laser(
+                self.x,
+                self.y,
+                self.angle
+            ))
+        end,
 
         draw = function(self, faded)
             local opacity = 1
@@ -82,6 +92,10 @@ function Player(debugging)
                 self.x - self.radius * (2 / 3 * math.cos(self.angle) - math.sin(self.angle)),
                 self.y + self.radius * (2 / 3 * math.sin(self.angle) + math.cos(self.angle))
             )
+
+            for _, laser in pairs(self.lasers) do
+                laser:draw(faded)
+            end
         end,
 
         movePlayer = function(self)
