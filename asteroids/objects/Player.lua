@@ -1,5 +1,5 @@
 local love = require "love"
-local Laser = require "objects/Laser.lua"
+local Laser = require "objects/Laser"
 
 function Player(debugging)
     local SHIP_SIZE = 30

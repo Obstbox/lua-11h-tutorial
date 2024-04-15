@@ -14,7 +14,7 @@ function Laser(x, y, angle)
                 opacity = 0.2
             end
 
-            love.graphics.setColor(0.2, 0.8, 0.2)
+            love.graphics.setColor(0.1, 1, 0.1)
             love.graphics.setPointSize(3)
             love.graphics.points(self.x, self.y)
         end
