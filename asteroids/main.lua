@@ -9,9 +9,7 @@ function love.load()
     love.mouse.setVisible(false)
     mouse_x, mouse_y = 0, 0
 
-    local show_debugging = true
-
-    player = Player(show_debugging)
+    player = Player()
     game   = Game()
 
     game:startNewGame(player)

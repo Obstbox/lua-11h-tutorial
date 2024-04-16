@@ -1,14 +1,14 @@
+-- optional, love must know it self
+require "globals"
+
 local love = require "love"
 local Laser = require "objects/Laser"
 
-function Player(debugging)
+function Player()
     local SHIP_SIZE = 30
     local VIEW_ANGLE = math.rad(90)
     local LASER_DISTANCE = 0.6
     local MAX_LASERS = 3
-
-    -- so false is default
-    debugging = debugging or false
 
     return {
         x = love.graphics.getWidth() / 2,
@@ -82,7 +82,7 @@ function Player(debugging)
                 self:draw_flame_thrust("line", { 1, 0, 0 })
             end
 
-            if debugging then
+            if show_debugging then
                 love.graphics.setColor(1, 0, 1)
                 love.graphics.rectangle("fill", self.x - 2, self.y - 2, 4, 4)
 
