@@ -52,12 +52,10 @@ function Laser(x, y, angle)
             end
 
             self.distance = self.distance + math.sqrt((self.x_vel ^ 2) + (self.y_vel ^ 2))
-        end
+        end,
 
         expload = function(self)
-            if self.expload_time > EXPLOAD_DUR then
-                self.exploading = 2
-            end
+            self.exploading = 2
         end
     }
 end

@@ -1,4 +1,4 @@
-require "asteroids"
+require "globals"
 
 local love   = require "love"
 
