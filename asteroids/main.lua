@@ -1,3 +1,5 @@
+require "globals"
+
 local love   = require "love"
 
 local Player = require "objects/Player"
@@ -60,6 +62,11 @@ function love.update(dt)
         player:movePlayer()
 
         for ast_index, asteroid in pairs(asteroids) do
+            for _, laser in pairs(player.lasers) do
+                if calculateDistance(laser.x, laser.y, asteroid.x, asteroid.y) < asteroid.radius then
+                    laser:expload()
+                end
+            end
             asteroid:move(dt)
         end
     end

@@ -26,9 +26,17 @@ function Laser(x, y, angle)
                 opacity = 0.2
             end
 
-            love.graphics.setColor(0.1, 1, 0.3)
-            love.graphics.setPointSize(3)
-            love.graphics.points(self.x, self.y)
+            if self.exploading < 1 then
+                love.graphics.setColor(0.1, 1, 0.3)
+                love.graphics.setPointSize(3)
+                love.graphics.points(self.x, self.y)
+            else
+                love.graphics.setColor(1, 104 / 255, 0, opacity)
+                love.graphics.circle("fill", self.x, self.y, 7 * 1.5)
+
+                love.graphics.setColor(1, 234 / 255, 0, opacity)
+                love.graphics.circle("fill", self.x, self.y, 7)
+            end
         end,
 
         move = function(self)
@@ -55,7 +63,10 @@ function Laser(x, y, angle)
         end,
 
         expload = function(self)
-            self.exploading = 2
+            self.expload_time = math.ceil(EXPLOAD_DUR * (love.timer.getFPS() / 100))
+            if self.expload_time > EXPLOAD_DUR then
+                self.exploading = 2
+            end
         end
     }
 end

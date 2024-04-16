@@ -154,7 +154,9 @@ function Player()
                     laser:expload()
                 end
 
-                if laser.exploading == 2 then
+                if laser.exploading == 0 then
+                    laser:move()
+                elseif laser.exploading == 2 then
                     self.destroyLaser(self, index)
                 end
             end
