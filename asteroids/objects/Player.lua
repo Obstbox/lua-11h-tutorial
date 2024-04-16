@@ -148,8 +148,6 @@ function Player()
             end
 
             for index, laser in pairs(self.lasers) do
-                laser:move()
-
                 if (laser.distance > LASER_DISTANCE * love.graphics.getWidth()) and (laser.exploading == 0) then
                     laser:expload()
                 end
