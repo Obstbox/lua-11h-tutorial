@@ -65,6 +65,7 @@ function love.update(dt)
             for _, laser in pairs(player.lasers) do
                 if calculateDistance(laser.x, laser.y, asteroid.x, asteroid.y) < asteroid.radius then
                     laser:expload()
+                    asteroid:destroy(asteroids, ast_index)
                 end
             end
             asteroid:move(dt)

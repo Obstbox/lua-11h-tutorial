@@ -70,6 +70,10 @@ function Asteroids(x, y, ast_size, level)
             elseif self.y - self.radius > love.graphics.getHeight() then
                 self.y = -self.radius
             end
+        end,
+
+        destroy = function(self, asteroids_tbl, index, game)
+            table.remove(asteroids_tbl, index)
         end
     }
 end
