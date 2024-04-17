@@ -73,6 +73,13 @@ function Asteroids(x, y, ast_size, level)
         end,
 
         destroy = function(self, asteroids_tbl, index, game)
+            local MIN_ASTEROID_SIZE = math.ceil(ASTEROID_SIZE / 8)
+
+            if self.radius > MIN_ASTEROID_SIZE then
+                table.insert(asteroids_tbl, Asteroids(self.x, self.y, self.radius, game.level))
+                table.insert(asteroids_tbl, Asteroids(self.x, self.y, self.radius, game.level))
+            end
+
             table.remove(asteroids_tbl, index)
         end
     }
