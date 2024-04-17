@@ -6,6 +6,7 @@ local Laser = require "objects/Laser"
 
 function Player()
     local SHIP_SIZE = 30
+    local EXPLOAD_DUR = 3
     local VIEW_ANGLE = math.rad(90)
     local LASER_DISTANCE = 0.6
     local MAX_LASERS = 3
@@ -16,6 +17,8 @@ function Player()
         radius = SHIP_SIZE / 2,
         angle  = VIEW_ANGLE,
         rotation  = 0,
+        expload_time = 0,
+        exploading = false,
         lasers = {},
         thrusting = false,
         thrust = {
@@ -62,24 +65,35 @@ function Player()
                 opacity = 0.3
             end
            
-            if self.thrusting then
-                if not self.thrust.big_flame then
-                    self.thrust.flame = self.thrust.flame - 1 / love.timer.getFPS()
+            if not self.exploading then
+                if self.thrusting then
+                    if not self.thrust.big_flame then
+                        self.thrust.flame = self.thrust.flame - 1 / love.timer.getFPS()
 
-                    if self.thrust.flame < 1.5 then
-                        self.thrust.big_flame = true
+                        if self.thrust.flame < 1.5 then
+                            self.thrust.big_flame = true
+                        end
+
+                    else
+                        self.thrust.flame = self.thrust.flame + 1 / love.timer.getFPS()
+
+                        if self.thrust.flame > 2.5 then
+                            self.thrust.big_flame = false
+                        end
                     end
 
-                else
-                    self.thrust.flame = self.thrust.flame + 1 / love.timer.getFPS()
-
-                    if self.thrust.flame > 2.5 then
-                        self.thrust.big_flame = false
-                    end
+                    self:draw_flame_thrust("fill", { 255 / 255, 102 / 255, 25 / 225 })
+                    self:draw_flame_thrust("line", { 1, 0, 0 })
                 end
+            else
+                love.graphics.setColor(1, 0, 0, opacity)
+                love.graphics.circle("fill", self.x, self.y, self.radius * 1.5)
 
-                self:draw_flame_thrust("fill", { 255 / 255, 102 / 255, 25 / 225 })
-                self:draw_flame_thrust("line", { 1, 0, 0 })
+                love.graphics.setColor(1, 158 / 255, 0, opacity)
+                love.graphics.circle("fill", self.x, self.y, self.radius)
+
+                love.graphics.setColor(1, 234 / 255, 0, opacity)
+                love.graphics.circle("fill", self.x, self.y, self.radius * 0.5)
             end
 
             if show_debugging then
