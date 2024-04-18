@@ -91,6 +91,7 @@ end
 
 function love.draw()
     if game.state.running or game.state.paused then
+        player:drawLives(game.state.paused)
         player:draw(game.state.paused)
 
         for _, asteroid in pairs(asteroids) do

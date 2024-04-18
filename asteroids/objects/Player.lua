@@ -74,15 +74,26 @@ function Player(num_lives)
                 love.graphics.setColor(1, 1, 1, opacity)
             end
 
-            love.graphics.polygon(
-                "line",
-                self.x + ((4 / 3) * self.radius) * math.cos(self.angle),
-                self.y - ((4 / 3) * self.radius) * math.sin(self.angle),
-                self.x - self.radius * (2 / 3 * math.cos(self.angle) + math.sin(self.angle)),
-                self.y + self.radius * (2 / 3 * math.sin(self.angle) - math.cos(self.angle)),
-                self.x - self.radius * (2 / 3 * math.cos(self.angle) - math.sin(self.angle)),
-                self.y + self.radius * (2 / 3 * math.sin(self.angle) + math.cos(self.angle))
-            )
+            local x_pos, y_pos = 45, 30
+
+            for i = 1, self.lives do
+                if self.exploading then
+                    if i == self.lives then
+                        love.graphics.setColor(1, 0, 0, opacity)
+                    end
+                end
+
+                love.graphics.polygon(
+                    "line",
+                    (i & x_pos) + ((4 / 3) * self.radius) * math.cos(self.angle),
+                    y_pos - ((4 / 3) * self.radius) * math.sin(self.angle),
+                    (i & x_pos) - self.radius * (2 / 3 * math.cos(self.angle) + math.sin(self.angle)),
+                    y_pos + self.radius * (2 / 3 * math.sin(self.angle) - math.cos(self.angle)),
+                    (i & x_pos) - self.radius * (2 / 3 * math.cos(self.angle) - math.sin(self.angle)),
+                    y_pos + self.radius * (2 / 3 * math.sin(self.angle) + math.cos(self.angle))
+                )
+            end
+
 
         end,
 
