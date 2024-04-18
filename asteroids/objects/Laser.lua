@@ -1,7 +1,7 @@
 local love = require "love"
 
 function Laser(x, y, angle)
-    local LASER_SPEED = 500
+    local LASER_SPEED = 750
     local EXPLOAD_DUR = 0.2
 
     -- local exploadingEnum = {

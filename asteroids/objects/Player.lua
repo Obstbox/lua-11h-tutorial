@@ -85,6 +85,30 @@ function Player()
                     self:draw_flame_thrust("fill", { 255 / 255, 102 / 255, 25 / 225 })
                     self:draw_flame_thrust("line", { 1, 0, 0 })
                 end
+
+                if show_debugging then
+                    love.graphics.setColor(1, 0, 1)
+                    love.graphics.rectangle("fill", self.x - 2, self.y - 2, 4, 4)
+
+                    love.graphics.setColor(0.5, 0, 0)
+                    love.graphics.circle("line", self.x, self.y, self.radius)
+                end
+
+                love.graphics.setColor(1, 1, 1, opacity)
+                love.graphics.polygon(
+                    "line",
+                    self.x + ((4 / 3) * self.radius) * math.cos(self.angle),
+                    self.y - ((4 / 3) * self.radius) * math.sin(self.angle),
+                    self.x - self.radius * (2 / 3 * math.cos(self.angle) + math.sin(self.angle)),
+                    self.y + self.radius * (2 / 3 * math.sin(self.angle) - math.cos(self.angle)),
+                    self.x - self.radius * (2 / 3 * math.cos(self.angle) - math.sin(self.angle)),
+                    self.y + self.radius * (2 / 3 * math.sin(self.angle) + math.cos(self.angle))
+                )
+
+                for _, laser in pairs(self.lasers) do
+                    laser:draw(faded)
+                end
+
             else
                 love.graphics.setColor(1, 0, 0, opacity)
                 love.graphics.circle("fill", self.x, self.y, self.radius * 1.5)
@@ -94,29 +118,6 @@ function Player()
 
                 love.graphics.setColor(1, 234 / 255, 0, opacity)
                 love.graphics.circle("fill", self.x, self.y, self.radius * 0.5)
-            end
-
-            if show_debugging then
-                love.graphics.setColor(1, 0, 1)
-                love.graphics.rectangle("fill", self.x - 2, self.y - 2, 4, 4)
-
-                love.graphics.setColor(0.5, 0, 0)
-                love.graphics.circle("line", self.x, self.y, self.radius)
-            end
-
-            love.graphics.setColor(1, 1, 1, opacity)
-            love.graphics.polygon(
-                "line",
-                self.x + ((4 / 3) * self.radius) * math.cos(self.angle),
-                self.y - ((4 / 3) * self.radius) * math.sin(self.angle),
-                self.x - self.radius * (2 / 3 * math.cos(self.angle) + math.sin(self.angle)),
-                self.y + self.radius * (2 / 3 * math.sin(self.angle) - math.cos(self.angle)),
-                self.x - self.radius * (2 / 3 * math.cos(self.angle) - math.sin(self.angle)),
-                self.y + self.radius * (2 / 3 * math.sin(self.angle) + math.cos(self.angle))
-            )
-
-            for _, laser in pairs(self.lasers) do
-                laser:draw(faded)
             end
         end,
 
