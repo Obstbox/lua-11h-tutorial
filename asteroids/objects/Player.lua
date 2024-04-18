@@ -121,46 +121,51 @@ function Player()
         end,
 
         movePlayer = function(self)
-            local FPS = love.timer.getFPS()
-            -- local friction = 0.3
-            local friction = 0.7
+            self.exploading = self.expload_time > 0
 
-            self.rotation = 360 / 180 * math.pi / FPS
+            if not self.exploading then
+                local FPS = love.timer.getFPS()
+                local friction = 0.7
 
-            if love.keyboard.isDown("a") or love.keyboard.isDown("left") or love.keyboard.isDown("kp4") then
-                self.angle = self.angle + self.rotation
-            end
+                self.rotation = 360 / 180 * math.pi / FPS
 
-            if love.keyboard.isDown("d") or love.keyboard.isDown("right") or love.keyboard.isDown("kp6") then
-                self.angle = self.angle - self.rotation
-            end
+                if love.keyboard.isDown("a") or love.keyboard.isDown("left") or love.keyboard.isDown("kp4") then
+                    self.angle = self.angle + self.rotation
+                end
 
-            if self.thrusting then
-                -- what a math magic is going here?
-                self.thrust.x = self.thrust.x + self.thrust.speed * math.cos(self.angle) / FPS
-                self.thrust.y = self.thrust.y - self.thrust.speed * math.sin(self.angle) / FPS
-            else
-                if self.thrust.x ~= 0 or self.thrust.y ~= 0 then
-                    self.thrust.x = self.thrust.x - friction * self.thrust.x / FPS
-                    self.thrust.y = self.thrust.y - friction * self.thrust.y / FPS
+                if love.keyboard.isDown("d") or love.keyboard.isDown("right") or love.keyboard.isDown("kp6") then
+                    self.angle = self.angle - self.rotation
+                end
+
+                if self.thrusting then
+                    -- what a math magic is going here?
+                    self.thrust.x = self.thrust.x + self.thrust.speed * math.cos(self.angle) / FPS
+                    self.thrust.y = self.thrust.y - self.thrust.speed * math.sin(self.angle) / FPS
+                else
+                    if self.thrust.x ~= 0 or self.thrust.y ~= 0 then
+                        self.thrust.x = self.thrust.x - friction * self.thrust.x / FPS
+                        self.thrust.y = self.thrust.y - friction * self.thrust.y / FPS
+                    end
+                end
+
+                self.x = self.x + self.thrust.x
+                self.y = self.y + self.thrust.y
+
+                if self.x + self.radius < 0 then
+                    self.x = love.graphics.getWidth() + self.radius
+                elseif self.x - self.radius > love.graphics.getWidth() then
+                    self.x = -self.radius
+                end
+
+                if self.y + self.radius < 0 then
+                    self.y = love.graphics.getHeight() + self.radius
+                elseif self.y - self.radius > love.graphics.getHeight() then
+                    self.y = -self.radius
                 end
             end
 
-            self.x = self.x + self.thrust.x
-            self.y = self.y + self.thrust.y
-
-            if self.x + self.radius < 0 then
-                self.x = love.graphics.getWidth() + self.radius
-            elseif self.x - self.radius > love.graphics.getWidth() then
-                self.x = -self.radius
-            end
-
-            if self.y + self.radius < 0 then
-                self.y = love.graphics.getHeight() + self.radius
-            elseif self.y - self.radius > love.graphics.getHeight() then
-                self.y = -self.radius
-            end
-
+            -- this section moved here because
+            -- when player exploaded, launched lasers must exists
             for index, laser in pairs(self.lasers) do
                 if (laser.distance > LASER_DISTANCE * love.graphics.getWidth()) and (laser.exploading == 0) then
                     laser:expload()
@@ -172,6 +177,10 @@ function Player()
                     self.destroyLaser(self, index)
                 end
             end
+        end,
+
+        expolad = function(self )
+            self.expload_time = math.ceil(EXPLOAD_DUR * love.timer.getFPS())
         end
     }
 end
