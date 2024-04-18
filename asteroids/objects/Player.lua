@@ -179,7 +179,7 @@ function Player()
             end
         end,
 
-        expolad = function(self )
+        expload = function(self)
             self.expload_time = math.ceil(EXPLOAD_DUR * love.timer.getFPS())
         end
     }

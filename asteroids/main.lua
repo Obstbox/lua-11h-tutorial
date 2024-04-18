@@ -64,7 +64,7 @@ function love.update(dt)
         for ast_index, asteroid in pairs(asteroids) do
             if not player.exploading then
                 if calculateDistance(player.x, player.y, asteroid.x, asteroid.y) < asteroid.radius then
-                    laser:expload()
+                    player:expload()
                     destroy_ast = true
                 end
             else
