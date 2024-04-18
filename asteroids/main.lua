@@ -73,7 +73,10 @@ function love.update(dt)
                 if player.expload_time == 0 then
                     if player.lives - 1 <= 0 then
                         game:changeGameState("ended")
+                        return
                     end
+
+                    player = Player(player.lives - 1)
                 end
             end
 
@@ -85,8 +88,15 @@ function love.update(dt)
             end
 
             if destroy_ast then
-                destroy_ast = false
-                asteroid:destroy(asteroids, ast_index, game)
+                if player.lives -1 <= 0 then
+                    if player.expload_time == 0 then
+                        destroy_ast = false
+                        asteroid:destroy(asteroids, ast_index, game)
+                    end
+                else
+                    destroy_ast = false
+                    asteroid:destroy(asteroids, ast_index, game)
+                end
             end
             
             asteroid:move(dt)
