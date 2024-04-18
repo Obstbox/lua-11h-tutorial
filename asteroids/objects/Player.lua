@@ -85,12 +85,12 @@ function Player(num_lives)
 
                 love.graphics.polygon(
                     "line",
-                    (i & x_pos) + ((4 / 3) * self.radius) * math.cos(self.angle),
-                    y_pos - ((4 / 3) * self.radius) * math.sin(self.angle),
-                    (i & x_pos) - self.radius * (2 / 3 * math.cos(self.angle) + math.sin(self.angle)),
-                    y_pos + self.radius * (2 / 3 * math.sin(self.angle) - math.cos(self.angle)),
-                    (i & x_pos) - self.radius * (2 / 3 * math.cos(self.angle) - math.sin(self.angle)),
-                    y_pos + self.radius * (2 / 3 * math.sin(self.angle) + math.cos(self.angle))
+                    (i * x_pos) + ((4 / 3) * self.radius) * math.cos(VIEW_ANGLE),
+                    y_pos - ((4 / 3) * self.radius) * math.sin(VIEW_ANGLE),
+                    (i * x_pos) - self.radius * (2 / 3 * math.cos(VIEW_ANGLE) + math.sin(VIEW_ANGLE)),
+                    y_pos + self.radius * (2 / 3 * math.sin(VIEW_ANGLE) - math.cos(VIEW_ANGLE)),
+                    (i * x_pos) - self.radius * (2 / 3 * math.cos(VIEW_ANGLE) - math.sin(VIEW_ANGLE)),
+                    y_pos + self.radius * (2 / 3 * math.sin(VIEW_ANGLE) + math.cos(VIEW_ANGLE))
                 )
             end
 
