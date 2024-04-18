@@ -69,6 +69,12 @@ function love.update(dt)
                 end
             else
                 player.expload_time = player.expload_time - 1
+
+                if player.expload_time == 0 then
+                    if player.lives - 1 <= 0 then
+                        game:changeGameState("ended")
+                    end
+                end
             end
 
             for _, laser in pairs(player.lasers) do
